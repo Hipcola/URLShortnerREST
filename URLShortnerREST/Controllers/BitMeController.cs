@@ -11,12 +11,11 @@ namespace URLShortnerREST.Controllers
     {
 
         private readonly ILogger<BitMeController> _logger;
-        private IUrlLibary _urlLibary;
+        private static IUrlLibary _urlLibary = new UrlLibary();
 
         public BitMeController(ILogger<BitMeController> logger)
         {
             _logger = logger;
-            _urlLibary = new UrlLibary();
         }
 
         [Route("BitMeShorten")]
