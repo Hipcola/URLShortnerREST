@@ -25,7 +25,7 @@ namespace URLShortnerREST.Models
         {
             //Check if url is smaller than system limit 
             //todo remove http.www?
-            if (url.Length > 9+7+24) //http:www. (9) /BitMe/(7) b64(24)
+            if (url != null && url.Length > 9+7+24) //http:www. (9) /BitMe/(7) b64(24)
             { 
                 if (GUIDToUrlDictionary.ContainsValue(url))
                 {
@@ -33,11 +33,11 @@ namespace URLShortnerREST.Models
                 }
                 else
                 {
-                    string shortendURL = WebEncoders.Base64UrlEncode(Guid.NewGuid().ToByteArray());
+                    string shortenedKey = WebEncoders.Base64UrlEncode(Guid.NewGuid().ToByteArray());
                         //Convert.ToBase64String(Guid.NewGuid().ToByteArray()).TrimEnd('=') //Convert can handle base64 with trailing = removed which gets our url shorter (https://stackoverflow.com/questions/9020409/is-it-ok-to-remove-the-equal-signs-from-a-base64-string)
-                    GUIDToUrlDictionary.Add(shortendURL, url);
+                    GUIDToUrlDictionary.Add(shortenedKey, url);
 
-                    return shortendURL;
+                    return shortenedKey;
                 }
             }
             else
@@ -46,9 +46,14 @@ namespace URLShortnerREST.Models
             }
         }
 
-        public string GetURL(string shortendUrl)
+        /// <summary>
+        /// Expects a shortened encoded string created by UrlLibary.StoreURL
+        /// </summary>
+        /// <param name="shortenedKey"> </param>
+        /// <returns>The long url stored against the encoded string key</returns>
+        public string GetURL(string shortenedKey)
         {
-            return GUIDToUrlDictionary[shortendUrl];
+            return GUIDToUrlDictionary[shortenedKey];
         }
     }
 }

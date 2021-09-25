@@ -3,6 +3,6 @@
     public interface IUrlLibary
     {
         string StoreURL(string url);
-        string GetURL(string shortendUrl);
+        string GetURL(string shortenedKey);
     }
 }
