@@ -29,7 +29,7 @@ namespace URLShortnerREST.Models
             { 
                 if (GUIDToUrlDictionary.ContainsValue(url))
                 {
-                    return GUIDToUrlDictionary.First(u => u.Value == url).Key;
+                    return string.Format(@"BitMe/{0}", GUIDToUrlDictionary.First(u => u.Value == url).Key);
                 }
                 else
                 {
@@ -37,7 +37,7 @@ namespace URLShortnerREST.Models
                         //Convert.ToBase64String(Guid.NewGuid().ToByteArray()).TrimEnd('=') //Convert can handle base64 with trailing = removed which gets our url shorter (https://stackoverflow.com/questions/9020409/is-it-ok-to-remove-the-equal-signs-from-a-base64-string)
                     GUIDToUrlDictionary.Add(shortenedKey, url);
 
-                    return shortenedKey;
+                    return string.Format(@"BitMe/{0}", shortenedKey);
                 }
             }
             else

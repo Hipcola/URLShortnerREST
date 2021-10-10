@@ -29,7 +29,7 @@ namespace URLShortnerREST.Controllers
         [HttpGet]
         public string BitMeShorten([FromQuery]string url)
         {
-            return string.Format(@"BitMe/{0}", _urlLibary.StoreURL(url));
+            return _urlLibary.StoreURL(url);
         }
 
         [Route("{key}")]
